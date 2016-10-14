@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		992FB4601DB0C58000E303FD /* UIButton+ClickEdgeInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 992FB45F1DB0C58000E303FD /* UIButton+ClickEdgeInsets.m */; };
+		992FB4641DB0C60C00E303FD /* UIControl+Delay.m in Sources */ = {isa = PBXBuildFile; fileRef = 992FB4631DB0C60C00E303FD /* UIControl+Delay.m */; };
 		99456D5F1DA8D36C00257373 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99456D5E1DA8D36C00257373 /* main.m */; };
 		99456D621DA8D36C00257373 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99456D611DA8D36C00257373 /* AppDelegate.m */; };
 		99456D651DA8D36C00257373 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99456D641DA8D36C00257373 /* ViewController.m */; };
@@ -26,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		992FB45E1DB0C58000E303FD /* UIButton+ClickEdgeInsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ClickEdgeInsets.h"; sourceTree = "<group>"; };
+		992FB45F1DB0C58000E303FD /* UIButton+ClickEdgeInsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ClickEdgeInsets.m"; sourceTree = "<group>"; };
+		992FB4621DB0C60C00E303FD /* UIControl+Delay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+Delay.h"; sourceTree = "<group>"; };
+		992FB4631DB0C60C00E303FD /* UIControl+Delay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+Delay.m"; sourceTree = "<group>"; };
 		99456D5A1DA8D36C00257373 /* Categories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Categories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99456D5E1DA8D36C00257373 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		99456D601DA8D36C00257373 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		992FB4611DB0C60400E303FD /* UIControl */ = {
+			isa = PBXGroup;
+			children = (
+				992FB4621DB0C60C00E303FD /* UIControl+Delay.h */,
+				992FB4631DB0C60C00E303FD /* UIControl+Delay.m */,
+			);
+			path = UIControl;
+			sourceTree = "<group>";
+		};
 		99456D511DA8D36C00257373 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				99FF80FC1DA8DAF70028BEEF /* UIBarButtonItem */,
+				992FB4611DB0C60400E303FD /* UIControl */,
 				99FF80FF1DA8DAF70028BEEF /* UIButton */,
 				99FF81021DA8DAF70028BEEF /* UIColor */,
 				99FF81051DA8DAF70028BEEF /* UILabel */,
@@ -148,6 +164,8 @@
 			children = (
 				99FF81001DA8DAF70028BEEF /* UIButton+Badge.h */,
 				99FF81011DA8DAF70028BEEF /* UIButton+Badge.m */,
+				992FB45E1DB0C58000E303FD /* UIButton+ClickEdgeInsets.h */,
+				992FB45F1DB0C58000E303FD /* UIButton+ClickEdgeInsets.m */,
 			);
 			path = UIButton;
 			sourceTree = "<group>";
@@ -297,10 +315,12 @@
 				99FF81141DA8DAF70028BEEF /* UIButton+Badge.m in Sources */,
 				99FF81221DA8DAFF0028BEEF /* NSNumber+Round.m in Sources */,
 				99FF81171DA8DAF70028BEEF /* UITableView+Common.m in Sources */,
+				992FB4641DB0C60C00E303FD /* UIControl+Delay.m in Sources */,
 				99FF81131DA8DAF70028BEEF /* UIBarButtonItem+Badge.m in Sources */,
 				99456D5F1DA8D36C00257373 /* main.m in Sources */,
 				99FF81191DA8DAF70028BEEF /* UIView+IBnspectable.m in Sources */,
 				99FF81161DA8DAF70028BEEF /* UILabel+extension.m in Sources */,
+				992FB4601DB0C58000E303FD /* UIButton+ClickEdgeInsets.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
