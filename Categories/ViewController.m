@@ -22,6 +22,7 @@
 #import "UIImage+RemoteSize.h"
 #import "UIImage+Extension.h"
 #import "UINavigationController+Transitions.h"
+#import "NSBundle+AppIcon.h"
 
 @interface ViewController ()
 
@@ -71,15 +72,12 @@
     [view addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         self.view.backgroundColor = [UIColor greenColor];
     }];
+    
+    
+    NSLog(@"%@",[[NSBundle mainBundle] appIconPath]);
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    UIViewController *vc = [[UIViewController alloc] init];
-    [self.navigationController pushViewController:vc withTransition:UIViewAnimationTransitionFlipFromLeft];
-}
+
 
 - (void)didReceiveMemoryWarning
 {

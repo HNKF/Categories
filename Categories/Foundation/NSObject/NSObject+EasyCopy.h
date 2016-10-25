@@ -1,13 +1,6 @@
-//
-//  NSObject+EasyCopy.h
-//  NSObject-EasyCopy
-//
-//  Created by York on 15/12/1.
-//  Copyright © 2015年 YK-Unit. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
-// a copy category for NSObject 
+
 @interface NSObject (EasyCopy)
 
 /**

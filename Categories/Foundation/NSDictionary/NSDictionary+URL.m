@@ -1,10 +1,3 @@
-//
-//  NSDictionary+URL.m
-//  Categories
-//
-//  Created by Jakey on 15/8/7.
-//  Copyright © 2015年 www.skyfox.org. All rights reserved.
-//
 
 #import "NSDictionary+URL.h"
 
@@ -20,13 +13,16 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     NSArray *parameters = [query componentsSeparatedByString:@"&"];
-    for(NSString *parameter in parameters) {
+    for(NSString *parameter in parameters)
+    {
         NSArray *contents = [parameter componentsSeparatedByString:@"="];
-        if([contents count] == 2) {
+        if([contents count] == 2)
+        {
             NSString *key = [contents objectAtIndex:0];
             NSString *value = [contents objectAtIndex:1];
             value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            if (key && value) {
+            if (key && value)
+            {
                 [dict setObject:value forKey:key];
             }
         }
@@ -41,8 +37,10 @@
 - (NSString *)URLQueryString 
 {
     NSMutableString *string = [NSMutableString string];
-    for (NSString *key in [self allKeys]) {
-        if ([string length]) {
+    for (NSString *key in [self allKeys])
+    {
+        if ([string length])
+        {
             [string appendString:@"&"];
         }
         CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)[[self objectForKey:key] description],

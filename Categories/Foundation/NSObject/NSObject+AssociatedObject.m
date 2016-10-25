@@ -1,13 +1,7 @@
-//
-//  NSObject+AssociatedObject.m
-//  Categories 
-//
-//  Created by Jakey on 14/12/11.
-//  Copyright (c) 2014年 www.skyfox.org. All rights reserved.
-//
 
 #import "NSObject+AssociatedObject.h"
 #import  <objc/runtime.h>
+
 @implementation NSObject (AssociatedObject)
 /**
  *  @brief  附加一个stong对象

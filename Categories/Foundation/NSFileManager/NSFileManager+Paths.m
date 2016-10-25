@@ -1,15 +1,8 @@
-//
-//  NSFileManager+Paths.m
-//  Categories 
-//
-//  Created by Jakey on 14/12/30.
-//  Copyright (c) 2014年 www.skyfox.org. All rights reserved.
-//
 
 #import "NSFileManager+Paths.h"
-#include <sys/xattr.h>
 
 @implementation NSFileManager (Paths)
+
 + (NSURL *)URLForDirectory:(NSSearchPathDirectory)directory
 {
     return [self.defaultManager URLsForDirectory:directory inDomains:NSUserDomainMask].lastObject;
@@ -50,15 +43,4 @@
     return [self pathForDirectory:NSCachesDirectory];
 }
 
-+ (BOOL)addSkipBackupAttributeToFile:(NSString *)path
-{
-    return [[NSURL.alloc initFileURLWithPath:path] setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:nil];
-}
-
-+ (double)availableDiskSpace
-{
-    NSDictionary *attributes = [self.defaultManager attributesOfFileSystemForPath:self.documentsPath error:nil];
-    
-    return [attributes[NSFileSystemFreeSize] unsignedLongLongValue] / (double)0x100000;
-}
 @end

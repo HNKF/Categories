@@ -1,22 +1,16 @@
-//
-//  NSObject+Blocks.m
-//  PSFoundation
-//
-//  Created by Peter Steinberger on 24.10.10.
-//  Copyright 2010 Peter Steinberger. All rights reserved.
-//
 
 #import "NSObject+Blocks.h"
-#import <dispatch/dispatch.h>
 
-static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
+static inline dispatch_time_t dTimeDelay(NSTimeInterval time)
+{
     int64_t delta = (int64_t)(NSEC_PER_SEC * time);
     return dispatch_time(DISPATCH_TIME_NOW, delta);
 }
 
 @implementation NSObject (Blocks)
 
-+ (id)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
++ (id)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
+{
     if (!block) return nil;
     
     __block BOOL cancelled = NO;
@@ -36,7 +30,8 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return wrappingBlock;
 }
 
-+ (id)performBlock:(void (^)(id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
++ (id)performBlock:(void (^)(id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay
+{
     if (!block) return nil;
     
     __block BOOL cancelled = NO;
@@ -56,7 +51,8 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return wrappingBlock;
 }
 
-- (id)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
+- (id)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
+{
     
     if (!block) return nil;
     
@@ -77,7 +73,8 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return wrappingBlock;
 }
 
-- (id)performBlock:(void (^)(id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
+- (id)performBlock:(void (^)(id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay
+{
     if (!block) return nil;
     
     __block BOOL cancelled = NO;
@@ -97,13 +94,15 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return wrappingBlock;
 }
 
-+ (void)cancelBlock:(id)block {
++ (void)cancelBlock:(id)block
+{
     if (!block) return;
     void (^aWrappingBlock)(BOOL) = (void(^)(BOOL))block;
     aWrappingBlock(YES);
 }
 
-+ (void)cancelPreviousPerformBlock:(id)aWrappingBlockHandle {
++ (void)cancelPreviousPerformBlock:(id)aWrappingBlockHandle
+{
     [self cancelBlock:aWrappingBlockHandle];
 }
 
