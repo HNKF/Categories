@@ -1,13 +1,7 @@
-//
-//  UIColor+HexString.h
-//  SvpplyTable
-//
-//  Created by Anonymous on 13-8-14.
-//  Copyright (c) 2013年 Minqian Liu. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 
+/** 用十六进制颜色生成UIColor */
 @interface UIColor (HexString)
 
 + (UIColor *)colorWithHexString:(NSString *)stringToConvert;

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/** 改变按钮的响应区域 */
 @interface UIButton (ClickEdgeInsets)
 
-@property (nonatomic, assign) CGFloat clickInset;
-
+/** 上左下右分别增加或减小多少  正数为增加 负数为减小*/
 @property (nonatomic, assign) UIEdgeInsets clickEdgeInsets;
 
 @end

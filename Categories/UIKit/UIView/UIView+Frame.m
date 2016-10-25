@@ -1,135 +1,126 @@
-//
-//  UIView+Extension.m
-//  MJRefreshExample
-//
-//  Created by MJ Lee on 14-5-28.
-//  Copyright (c) 2014年 itcast. All rights reserved.
-//
 
 #import "UIView+Frame.h"
 
 @implementation UIView (Frame)
 
-- (void)setX:(CGFloat)x {
+- (void)setX:(CGFloat)x
+{
     CGRect frame = self.frame;
     frame.origin.x = x;
     self.frame = frame;
 }
 
-- (CGFloat)x {
+- (CGFloat)x
+{
     return self.frame.origin.x;
 }
 
-- (void)setY:(CGFloat)y {
+- (void)setY:(CGFloat)y
+{
     CGRect frame = self.frame;
     frame.origin.y = y;
     self.frame = frame;
 }
 
-- (CGFloat)y {
+- (CGFloat)y
+{
     return self.frame.origin.y;
 }
 
-- (void)setOrigin:(CGPoint)origin {
+- (void)setOrigin:(CGPoint)origin
+{
     CGRect frame = self.frame;
     frame.origin = origin;
     self.frame = frame;
 }
 
-- (CGPoint)origin {
+- (CGPoint)origin
+{
     return self.frame.origin;
 }
 
-- (void)setWidth:(CGFloat)width{
+- (void)setWidth:(CGFloat)width
+{
     CGRect frame = self.frame;
     frame.size.width = width;
     self.frame = frame;
 }
 
-- (CGFloat)width {
+- (CGFloat)width
+{
     return self.frame.size.width;
 }
 
-- (void)setHeight:(CGFloat)height {
+- (void)setHeight:(CGFloat)height
+{
     CGRect frame = self.frame;
     frame.size.height = height;
     self.frame = frame;
 }
 
-- (CGFloat)height {
+- (CGFloat)height
+{
     return self.frame.size.height;
 }
 
-- (void)setSize:(CGSize)size {
+- (void)setSize:(CGSize)size
+{
     CGRect frame = self.frame;
     frame.size = size;
     self.frame = frame;
 }
 
-- (CGSize)size {
+- (CGSize)size
+{
     return self.frame.size;
 }
 
-- (void)setBottom:(CGFloat)bottom {
+- (void)setBottom:(CGFloat)bottom
+{
     CGRect frame = self.frame;
     frame.origin.y = bottom - frame.size.height;
     self.frame = frame;
 }
 
-- (CGFloat)bottom {
+- (CGFloat)bottom
+{
     return CGRectGetMaxY(self.frame);
 }
 
-- (CGFloat)tail {
+- (CGFloat)tail
+{
     return CGRectGetMaxX(self.frame);
 }
 
-- (void)setTail:(CGFloat)tail {
+- (void)setTail:(CGFloat)tail
+{
     CGRect frame = self.frame;
     frame.origin.x = tail - frame.size.width;
     self.frame = frame;
 }
 
-- (void)setMiddleX:(CGFloat)middleX {
+- (void)setMiddleX:(CGFloat)middleX
+{
     CGRect frame = self.frame;
     frame.origin.x = middleX - frame.size.width / 2;
     self.frame = frame;
 }
 
-- (CGFloat)middleX {
+- (CGFloat)middleX
+{
     return CGRectGetMidX(self.frame);
 }
 
-- (void)setMiddleY:(CGFloat)middleY {
+- (void)setMiddleY:(CGFloat)middleY
+{
     CGRect frame = self.frame;
     frame.origin.y = middleY - frame.size.height / 2 ;
     self.frame = frame;
 }
 
-- (CGFloat)middleY {
-    return CGRectGetMidY(self.frame);
-}
-
-+ (instancetype)loadFromNib {
-    return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil] firstObject];
-}
-
-- (void)removeAllSubviews {
-    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-}
-
-- (NSArray *)allSubviews
+- (CGFloat)middleY
 {
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-    
-    [array addObjectsFromArray:self.subviews];
-    
-    for (UIView *view in self.subviews)
-    {
-        [array addObjectsFromArray:[view allSubviews]];
-    }
-    
-    return array;
+    return CGRectGetMidY(self.frame);
 }
 
 @end

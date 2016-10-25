@@ -1,20 +1,14 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- Simple category that lets you replace the text of a button with an activity indicator.
- */
+/** 提交按钮 提交时在中间显示一个菊花 */
 
 @interface UIButton (Indicator)
 
-/**
- This method will show the activity indicator in place of the button text.
- */
+/** 显示菊花 */
 - (void)showIndicator;
 
-/**
- This method will remove the indicator and put thebutton text back in place.
- */
+/** 隐藏菊花 */
 - (void)hideIndicator;
 
 @end

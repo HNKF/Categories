@@ -1,13 +1,5 @@
-//
-//  UIImage+RemoteSize.m
-//  Categories 
-//
-//  Created by Jakey on 15/1/27.
-//  Copyright (c) 2015年 www.skyfox.org. All rights reserved.
-//
 
 #import "UIImage+RemoteSize.h"
-
 #import <objc/runtime.h>
 
 static char *kSizeRequestDataKey = "NSURL.sizeRequestData";
@@ -16,49 +8,56 @@ static char *kSizeRequestCompletionKey = "NSURL.sizeRequestCompletion";
 
 typedef uint32_t dword;
 
-@interface NSURL (RemoteSize)
-@property (nonatomic, strong) NSMutableData *sizeRequestData;
-@property (nonatomic, strong) NSString *sizeRequestType;
-@property (nonatomic, copy) UIImageSizeRequestCompleted sizeRequestCompletion;
+@interface NSURL (RemoteSize) <NSURLSessionTaskDelegate>
+
+@property (nonatomic, strong) NSMutableData* sizeRequestData;
+@property (nonatomic, strong) NSString* sizeRequestType;
+@property (copy)   UIImageSizeRequestCompleted sizeRequestCompletion;
+
 @end
 
 @implementation NSURL (RemoteSize)
 
-@dynamic sizeRequestData ,sizeRequestCompletion, sizeRequestType;
-
-- (void)setsizeRequestCompletion: (UIImageSizeRequestCompleted) block {
+- (void) setSizeRequestCompletion: (UIImageSizeRequestCompleted) block
+{
     objc_setAssociatedObject(self, &kSizeRequestCompletionKey, block, OBJC_ASSOCIATION_COPY);
 }
 
-- (UIImageSizeRequestCompleted)sizeRequestCompletion {
+- (UIImageSizeRequestCompleted) sizeRequestCompletion
+{
     return objc_getAssociatedObject(self, &kSizeRequestCompletionKey);
 }
 
-- (void)setsizeRequestData:(NSMutableData *)sizeRequestData {
+- (void) setSizeRequestData:(NSMutableData *)sizeRequestData
+{
     objc_setAssociatedObject(self, &kSizeRequestDataKey, sizeRequestData, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (NSMutableData*)sizeRequestData {
+- (NSMutableData*) sizeRequestData
+{
     return objc_getAssociatedObject(self, &kSizeRequestDataKey);
 }
 
-- (void)setsizeRequestType:(NSString *)sizeRequestType {
+- (void) setSizeRequestType:(NSString *)sizeRequestType
+{
     objc_setAssociatedObject(self, &kSizeRequestTypeKey, sizeRequestType, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (NSString*)sizeRequestType {
+- (NSString*) sizeRequestType
+{
     return objc_getAssociatedObject(self, &kSizeRequestTypeKey);
 }
 
-#pragma mark - NSURLConnectionDelegate
-- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse *)response {
-    [self.sizeRequestData setLength: 0];    //Redirected => reset data
-}
+#pragma mark - NSURLSessionDelegate
 
-- (void)connection:(NSURLConnection*)connection didReceiveData:(NSData *)data {
+- (void)URLSession:(NSURLSession *)session
+          dataTask:(NSURLSessionDataTask *)dataTask
+    didReceiveData:(NSData *)data
+{
     NSMutableData* receivedData = self.sizeRequestData;
     
-    if( !receivedData ) {
+    if(!receivedData)
+    {
         receivedData = [NSMutableData data];
         self.sizeRequestData = receivedData;
     }
@@ -74,29 +73,35 @@ typedef uint32_t dword;
     const char gifSignature[2] = {71, 73};
     const char jpgSignature[2] = {255, 216};
     
-    if(!self.sizeRequestType ) {
-        if( memcmp(pngSignature, cString, 8) == 0 ) {
+    if(!self.sizeRequestType )
+    {
+        if( memcmp(pngSignature, cString, 8) == 0 )
+        {
             self.sizeRequestType = @"PNG";
         }
-        else if( memcmp(bmpSignature, cString, 2) == 0 ) {
+        else if( memcmp(bmpSignature, cString, 2) == 0 )
+        {
             self.sizeRequestType = @"BMP";
         }
-        else if( memcmp(jpgSignature, cString, 2) == 0 ) {
+        else if( memcmp(jpgSignature, cString, 2) == 0 )
+        {
             self.sizeRequestType = @"JPG";
         }
-        else if( memcmp(gifSignature, cString, 2) == 0 ) {
+        else if( memcmp(gifSignature, cString, 2) == 0 )
+        {
             self.sizeRequestType = @"GIF";
         }
     }
     
-    if( [self.sizeRequestType isEqualToString: @"PNG"] ) {
+    if( [self.sizeRequestType isEqualToString: @"PNG"] )
+    {
         char type[5];
         int offset = 8;
         
         dword chunkSize = 0;
         int chunkSizeSize = sizeof(chunkSize);
         
-        if( offset+chunkSizeSize > length )
+        if(offset+chunkSizeSize > length)
             return;
         
         memcpy(&chunkSize, cString+offset, chunkSizeSize);
@@ -109,7 +114,9 @@ typedef uint32_t dword;
         memcpy(&type, cString+offset, 4); type[4]='\0';
         offset += 4;
         
-        if( strcmp(type, "IHDR") == 0 ) {   //Should always be first
+        if(strcmp(type, "IHDR") == 0)
+        {
+            //Should always be first
             dword width = 0, height = 0;
             memcpy(&width, cString+offset, 4);
             offset += 4;
@@ -119,16 +126,19 @@ typedef uint32_t dword;
             offset += 4;
             height = OSSwapInt32(height);
             
-            if( self.sizeRequestCompletion ) {
+            if( self.sizeRequestCompletion )
+            {
                 self.sizeRequestCompletion(self, CGSizeMake(width, height));
             }
             
             self.sizeRequestCompletion = nil;
             
-            [connection cancel];
+            [dataTask cancel];
+            dataTask = nil;
         }
     }
-    else if( [self.sizeRequestType isEqualToString: @"BMP"] ) {
+    else if([self.sizeRequestType isEqualToString: @"BMP"])
+    {
         int offset = 18;
         dword width = 0, height = 0;
         memcpy(&width, cString+offset, 4);
@@ -137,19 +147,23 @@ typedef uint32_t dword;
         memcpy(&height, cString+offset, 4);
         offset += 4;
         
-        if( self.sizeRequestCompletion ) {
+        if( self.sizeRequestCompletion )
+        {
             self.sizeRequestCompletion(self, CGSizeMake(width, height));
         }
         
         self.sizeRequestCompletion = nil;
         
-        [connection cancel];
+        [dataTask cancel];
+        dataTask = nil;
     }
-    else if( [self.sizeRequestType isEqualToString: @"JPG"] ) {
+    else if([self.sizeRequestType isEqualToString: @"JPG"])
+    {
         int offset = 4;
         dword block_length = cString[offset]*256 + cString[offset+1];
         
-        while (offset<length) {
+        while (offset<length)
+        {
             offset += block_length;
             
             if( offset >= length )
@@ -168,8 +182,8 @@ typedef uint32_t dword;
                cString[offset+1] == 0xCB ||
                cString[offset+1] == 0xCD ||
                cString[offset+1] == 0xCE ||
-               cString[offset+1] == 0xCF ) {
-                
+               cString[offset+1] == 0xCF )
+            {
                 dword width = 0, height = 0;
                 
                 height = cString[offset+5]*256 + cString[offset+6];
@@ -181,17 +195,19 @@ typedef uint32_t dword;
                 
                 self.sizeRequestCompletion = nil;
                 
-                [connection cancel];
-                
+                [dataTask cancel];
+                dataTask = nil;
             }
-            else {
+            else
+            {
                 offset += 2;
                 block_length = cString[offset]*256 + cString[offset+1];
             }
             
         }
     }
-    else if( [self.sizeRequestType isEqualToString: @"GIF"] ) {
+    else if([self.sizeRequestType isEqualToString: @"GIF"])
+    {
         int offset = 6;
         dword width = 0, height = 0;
         memcpy(&width, cString+offset, 2);
@@ -200,73 +216,76 @@ typedef uint32_t dword;
         memcpy(&height, cString+offset, 2);
         offset += 2;
         
-        if( self.sizeRequestCompletion ) {
+        if(self.sizeRequestCompletion)
+        {
             self.sizeRequestCompletion(self, CGSizeMake(width, height));
         }
         
         self.sizeRequestCompletion = nil;
         
-        [connection cancel];
+        [dataTask cancel];
+        dataTask = nil;
     }
 }
 
--(void)connection:(NSURLConnection*)connection didFailWithError:(NSError *)error {
-    if( self.sizeRequestCompletion )
-        self.sizeRequestCompletion(self, CGSizeZero);
-}
-
--(NSCachedURLResponse*)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
-    return cachedResponse;
-}
-
-- (void)connectionDidFinishLoading: (NSURLConnection *)connection {
-    // Basically, we failed to obtain the image size using metadata and the
-    // entire image was downloaded...
-    
-    if(!self.sizeRequestData.length) {
+- (void)URLSession:(NSURLSession *)session
+              task:(NSURLSessionTask *)task
+didCompleteWithError:(NSError *)error
+{
+    if(!self.sizeRequestData.length)
+    {
         self.sizeRequestData = nil;
     }
-    else {
+    else
+    {
         //Try parse to UIImage
         UIImage* image = [UIImage imageWithData: self.sizeRequestData];
         
-        if( self.sizeRequestCompletion && image) {
+        if(self.sizeRequestCompletion && image)
+        {
             self.sizeRequestCompletion(self, [image size]);
             return;
         }
     }
     
-    self.sizeRequestCompletion(self, CGSizeZero);
+    if(self.sizeRequestCompletion)
+    {
+        self.sizeRequestCompletion(self, CGSizeZero);
+    }
 }
 
 @end
 
 @implementation UIImage (RemoteSize)
 
-+ (void)requestSizeNoHeader:(NSURL*)imgURL completion:(UIImageSizeRequestCompleted)completion{
-    
-    if([imgURL isFileURL] ) {
-        //Load from file stream
+#pragma mark - Image size
+
++ (void)requestSizeFor:(NSURL*)imgURL completion:(UIImageSizeRequestCompleted)completion
+{
+    if( [imgURL isFileURL] )
+    {
+        NSData *imgData = [NSData dataWithContentsOfURL:imgURL];
+        UIImage *image = [UIImage imageWithData:imgData];
+        
+        if (completion)
+        {
+            completion(imgURL, [image size]);
+        }
     }
-    else {
+    else
+    {
         imgURL.sizeRequestCompletion = completion;
+ 
+        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration
+                                                              delegate:imgURL
+                                                         delegateQueue:[NSOperationQueue mainQueue]];
         
         NSURLRequest* request = [NSURLRequest requestWithURL:imgURL];
-        NSURLConnection* conn = [NSURLConnection connectionWithRequest: request delegate: imgURL];
-        [conn scheduleInRunLoop: [NSRunLoop mainRunLoop] forMode: NSDefaultRunLoopMode];
-        [conn start];
+        NSURLSessionDataTask *datadTask = [session dataTaskWithRequest:request];
+        [datadTask resume];
     }
-}
-
-
-+ (void)requestSizeWithHeader:(NSURL*)imgURL completion:(UIImageSizeRequestCompleted)completion{
-//        NSURLRequest* request = [NSURLRequest requestWithURL:imgURL];
-//
-//        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *resp, NSData *d, NSError *e) {
-//            NSLog(@"respone%@", [(NSHTTPURLResponse*)resp allHeaderFields]);
-//    
-//            
-//        }];
 }
 
 @end

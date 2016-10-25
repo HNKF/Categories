@@ -1,20 +1,15 @@
-//
-//  UIView+UIView_BlockGesture.m
-//  Categories 
-//
-//  Created by Jakey on 14/12/30.
-//  Copyright (c) 2014年 www.skyfox.org. All rights reserved.
-//
 
 #import "UIView+BlockGesture.h"
 #import <objc/runtime.h>
+
 static char kActionHandlerTapBlockKey;
 static char kActionHandlerTapGestureKey;
 static char kActionHandlerLongPressBlockKey;
 static char kActionHandlerLongPressGestureKey;
 
 @implementation UIView (BlockGesture)
-- (void)addTapActionWithBlock:(GestureActionBlock)block
+
+- (void)addTapActionWithBlock:(TapActionBlock)block
 {
     UITapGestureRecognizer *gesture = objc_getAssociatedObject(self, &kActionHandlerTapGestureKey);
     if (!gesture)
@@ -25,18 +20,20 @@ static char kActionHandlerLongPressGestureKey;
     }
     objc_setAssociatedObject(self, &kActionHandlerTapBlockKey, block, OBJC_ASSOCIATION_COPY);
 }
-- (void)handleActionForTapGesture:(UITapGestureRecognizer*)gesture
+
+- (void)handleActionForTapGesture:(UITapGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateRecognized)
     {
-        GestureActionBlock block = objc_getAssociatedObject(self, &kActionHandlerTapBlockKey);
+        TapActionBlock block = objc_getAssociatedObject(self, &kActionHandlerTapBlockKey);
         if (block)
         {
             block(gesture);
         }
     }
 }
-- (void)addLongPressActionWithBlock:(GestureActionBlock)block
+
+- (void)addLongPressActionWithBlock:(LongPressActionBlock)block
 {
     UILongPressGestureRecognizer *gesture = objc_getAssociatedObject(self, &kActionHandlerLongPressGestureKey);
     if (!gesture)
@@ -47,11 +44,12 @@ static char kActionHandlerLongPressGestureKey;
     }
     objc_setAssociatedObject(self, &kActionHandlerLongPressBlockKey, block, OBJC_ASSOCIATION_COPY);
 }
-- (void)handleActionForLongPressGesture:(UITapGestureRecognizer*)gesture
+
+- (void)handleActionForLongPressGesture:(UILongPressGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateRecognized)
     {
-        GestureActionBlock block = objc_getAssociatedObject(self, &kActionHandlerLongPressBlockKey);
+        LongPressActionBlock block = objc_getAssociatedObject(self, &kActionHandlerLongPressBlockKey);
         if (block)
         {
             block(gesture);

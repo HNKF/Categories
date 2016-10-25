@@ -10,6 +10,7 @@
 
 @interface UIControl (Delay)
 
+/** 每次响应的间隔 */
 @property (assign, nonatomic) NSTimeInterval acceptEventInterval;
 
 @end

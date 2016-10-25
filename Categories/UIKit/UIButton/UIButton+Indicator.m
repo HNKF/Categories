@@ -1,4 +1,3 @@
-//
 
 #import "UIButton+Indicator.h"
 #import <objc/runtime.h>
@@ -19,8 +18,8 @@ static NSString *const ButtonTextObjectKey = @"buttonTextObject";
     objc_setAssociatedObject(self, &ButtonTextObjectKey, currentButtonText, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &IndicatorViewKey, indicator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
-    [self setTitle:@"" forState:UIControlStateNormal];
     self.enabled = NO;
+    [self setTitle:@"" forState:UIControlStateNormal];
     [self addSubview:indicator];
 }
 
@@ -29,9 +28,9 @@ static NSString *const ButtonTextObjectKey = @"buttonTextObject";
     NSString *currentButtonText = (NSString *)objc_getAssociatedObject(self, &ButtonTextObjectKey);
     UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)objc_getAssociatedObject(self, &IndicatorViewKey);
     
+    self.enabled = YES;
     [indicator removeFromSuperview];
     [self setTitle:currentButtonText forState:UIControlStateNormal];
-    self.enabled = YES;
 }
 
 @end

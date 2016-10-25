@@ -11,18 +11,6 @@
 
 @implementation UIButton (ClickEdgeInsets)
 
-- (CGFloat)clickInset
-{
-    return [objc_getAssociatedObject(self, @selector(clickInset)) doubleValue];
-}
-
-- (void)setClickInset:(CGFloat)clickInset
-{
-    objc_setAssociatedObject(self, @selector(clickInset), @(clickInset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
-    self.clickEdgeInsets = UIEdgeInsetsMake(-clickInset, -clickInset, -clickInset, -clickInset);
-}
-
 - (UIEdgeInsets)clickEdgeInsets
 {
     return [objc_getAssociatedObject(self, @selector(clickEdgeInsets)) UIEdgeInsetsValue];

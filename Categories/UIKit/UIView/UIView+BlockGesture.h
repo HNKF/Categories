@@ -7,7 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^GestureActionBlock)(UIGestureRecognizer *gestureRecoginzer);
+typedef void (^TapActionBlock)(UITapGestureRecognizer *gestureRecoginzer);
+typedef void (^LongPressActionBlock)(UILongPressGestureRecognizer *gestureRecoginzer);
 
 @interface UIView (BlockGesture)
 /**
@@ -15,11 +16,11 @@ typedef void (^GestureActionBlock)(UIGestureRecognizer *gestureRecoginzer);
  *
  *  @param block 代码块
  */
-- (void)addTapActionWithBlock:(GestureActionBlock)block;
+- (void)addTapActionWithBlock:(TapActionBlock)block;
 /**
  *  @brief  添加长按手势
  *
  *  @param block 代码块
  */
-- (void)addLongPressActionWithBlock:(GestureActionBlock)block;
+- (void)addLongPressActionWithBlock:(LongPressActionBlock)block;
 @end

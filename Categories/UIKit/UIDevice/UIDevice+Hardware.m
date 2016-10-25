@@ -1,10 +1,3 @@
-//
-//  UIDevice+Hardware.m
-//  TestTable
-//
-//  Created by Inder Kumar Rathore on 19/01/13.
-//  Copyright (c) 2013 Rathore. All rights reserved.
-//
 
 #import "UIDevice+Hardware.h"
 #include <sys/types.h>
@@ -149,7 +142,6 @@
 {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
 }
-#pragma mark - sysctl utils
 
 + (NSUInteger)getSysInfo:(uint)typeSpecifier
 {
@@ -158,15 +150,6 @@
     int mib[2] = {CTL_HW, typeSpecifier};
     sysctl(mib, 2, &result, &size, NULL, 0);
     return (NSUInteger)result;
-}
-
-#pragma mark - memory information
-+ (NSUInteger)cpuFrequency {
-    return [self getSysInfo:HW_CPU_FREQ];
-}
-
-+ (NSUInteger)busFrequency {
-    return [self getSysInfo:HW_BUS_FREQ];
 }
 
 + (NSUInteger)ramSize {
@@ -198,27 +181,20 @@
     return mem_free;
 }
 
-#pragma mark - disk information
-
-+ (long long)freeDiskSpaceBytes
++ (NSUInteger)freeDiskSpaceBytes
 {
-    struct statfs buf;
-    long long freespace;
-    freespace = 0;
-    if ( statfs("/private/var", &buf) >= 0 ) {
-        freespace = (long long)buf.f_bsize * buf.f_bfree;
-    }
-    return freespace;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDictionary *attributes = [fileManager attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
+    NSNumber *number = attributes[NSFileSystemFreeSize];
+    return [number unsignedIntegerValue];
 }
 
-+ (long long)totalDiskSpaceBytes
++ (NSUInteger)totalDiskSpaceBytes
 {
-    struct statfs buf;
-    long long totalspace;
-    totalspace = 0;
-    if ( statfs("/private/var", &buf) >= 0 ) {
-        totalspace = (long long)buf.f_bsize * buf.f_blocks;
-    }
-    return totalspace;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDictionary *attributes = [fileManager attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
+    NSNumber *number = attributes[NSFileSystemSize];
+    return [number unsignedIntegerValue];
 }
+
 @end

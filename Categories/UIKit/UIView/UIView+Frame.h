@@ -1,10 +1,3 @@
-//
-//  UIView+Extension.h
-//  MJRefreshExample
-//
-//  Created by MJ Lee on 14-5-28.
-//  Copyright (c) 2014年 itcast. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 
@@ -23,11 +16,5 @@
 @property (assign, nonatomic) CGFloat width; /**< 宽度 */
 @property (assign, nonatomic) CGFloat height;/**< 高度 */
 @property (assign, nonatomic) CGSize  size;  /**< 尺寸 */
-
-+ (instancetype)loadFromNib;
-
-- (void)removeAllSubviews;
-
-- (NSArray *)allSubviews;
 
 @end

@@ -1,14 +1,7 @@
-//
-//  UIViewController+Helper.m
-//  HaoHaoZhu
-//
-//  Created by 李松 on 15/11/16.
-//  Copyright © 2015年 HaoHaoZhu. All rights reserved.
-//
 
-#import "UIViewController+Helper.h"
+#import "UIViewController+Current.h"
 
-@implementation UIViewController (Helper)
+@implementation UIViewController (Current)
 
 + (UIViewController *)findBestViewController:(UIViewController *)vc
 {
@@ -68,7 +61,7 @@
     return [UIViewController findBestViewController:viewController];
 }
 
-+ (UINavigationController *)getMainController {
++ (UINavigationController *)currentNavigatonController {
     
     UIViewController * currentViewController =  [UIViewController currentViewController];
     

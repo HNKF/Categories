@@ -12,24 +12,34 @@
 
 @property (strong, nonatomic) UILabel *badge;
 
-// Badge value to be display
+/** badge的文字 */
 @property (nonatomic) NSString *badgeValue;
-// Badge background color
+
+/** 背景颜色 */
 @property (nonatomic) UIColor *badgeBGColor;
-// Badge text color
+
+/** 文字颜色 */
 @property (nonatomic) UIColor *badgeTextColor;
-// Badge font
+
+/** 文字的字体 */
 @property (nonatomic) UIFont *badgeFont;
-// Padding value for the badge
+
+/** badge的padding */
 @property (nonatomic) CGFloat badgePadding;
-// Minimum size badge to small
+
+/** 最小的size */
 @property (nonatomic) CGFloat badgeMinSize;
-// Values for offseting the badge over the BarButtonItem you picked
+
+/** x坐标 */
 @property (nonatomic) CGFloat badgeOriginX;
+
+/** y坐标 */
 @property (nonatomic) CGFloat badgeOriginY;
-// In case of numbers, remove the badge when reaching zero
+
+/** 如果是数字0的话就隐藏不显示 */
 @property BOOL shouldHideBadgeAtZero;
-// Badge has a bounce animation when value changes
+
+/** 是否要缩放动画 */
 @property BOOL shouldAnimateBadge;
 
 @end

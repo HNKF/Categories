@@ -1,10 +1,3 @@
-//
-//  UIColor+HexString.m
-//  SvpplyTable
-//
-//  Created by Anonymous on 13-8-14.
-//  Copyright (c) 2013年 Minqian Liu. All rights reserved.
-//
 
 #import "UIColor+HexString.h"
 

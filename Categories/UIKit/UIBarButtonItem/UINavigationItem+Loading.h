@@ -3,36 +3,22 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- *  Position to show UIActivityIndicatorView in a navigation bar
- */
-typedef NS_ENUM(NSUInteger, NavBarLoaderPosition){
-    /**
-     *  Will show UIActivityIndicatorView in place of title view
-     */
+/** 在navigationbar上显示UIActivityIndicatorView的位置*/
+typedef NS_ENUM(NSUInteger, NavBarLoaderPosition)
+{
     NavBarLoaderPositionCenter = 0,
-    /**
-     *  Will show UIActivityIndicatorView in place of left item
-     */
+
     NavBarLoaderPositionLeft,
-    /**
-     *  Will show UIActivityIndicatorView in place of right item
-     */
+
     NavBarLoaderPositionRight
 };
 
 @interface UINavigationItem (Loading)
 
-/**
- *  Add UIActivityIndicatorView to view hierarchy and start animating immediately
- *
- *  @param position Left, center or right
- */
+/** 开始在position位置显示UIActivityIndicatorView */
 - (void)startAnimatingAt:(NavBarLoaderPosition)position;
 
-/**
- *  Stop animating, remove UIActivityIndicatorView from view hierarchy and restore item
- */
+/** 结束显示UIActivityIndicatorView*/
 - (void)stopAnimating;
 
 @end
