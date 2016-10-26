@@ -1,9 +1,3 @@
-//
-//  NSNumber+RomanNumerals.m
-//  SalesBagStandalone
-//
-//  Created by Patrick Zearfoss on 10/19/11.
-//
 
 #import "NSNumber+RomanNumerals.h"
 
@@ -30,7 +24,6 @@
     }
     
     return numeralString;
-    
 }
 
 @end

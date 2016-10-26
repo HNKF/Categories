@@ -1,31 +1,29 @@
-//
-//  NSObject+Reflection.m
-//  NSObject-Reflection
-//
-//  Created by Jakey on 15/12/22.
-//  Copyright © 2015年 Jakey. All rights reserved.
-//
 
 #import "NSObject+Reflection.h"
 #import <objc/runtime.h>
 
 @implementation NSObject (Reflection)
+
 - (NSString *)className
 {
     return NSStringFromClass([self class]);
 }
+
 - (NSString *)superClassName
 {
     return NSStringFromClass([self superclass]);
 }
+
 + (NSString *)className
 {
     return NSStringFromClass([self class]);
 }
+
 + (NSString *)superClassName
 {
     return NSStringFromClass([self superclass]);
 }
+
 -(NSDictionary *)propertyDictionary
 {
     //创建可变字典
@@ -41,10 +39,12 @@
     free(props);
     return dict;
 }
+
 - (NSArray*)propertyKeys
 {
     return [[self class] propertyKeys];
 }
+
 + (NSArray *)propertyKeys {
     unsigned int propertyCount = 0;
     objc_property_t * properties = class_copyPropertyList(self, &propertyCount);
@@ -57,17 +57,12 @@
     free(properties);
     return propertyNames;
 }
+
 - (NSArray *)propertiesInfo
 {
     return [[self class] propertiesInfo];
 }
-/**
- *  @author Jakey, 15-12-22 11:12:38
- *
- *  属性列表与属性的各种信息
- *
- *  @return <#return value description#>
- */
+
 + (NSArray *)propertiesInfo
 {
     NSMutableArray *propertieArray = [NSMutableArray array];
@@ -89,6 +84,7 @@
     
     return propertieArray;
 }
+
 + (NSArray *)propertiesWithCodeFormat
 {
     NSMutableArray *array = [NSMutableArray array];
@@ -135,7 +131,9 @@
     
     return array;
 }
--(NSArray*)methodList{
+
+-(NSArray*)methodList
+{
     u_int               count;
     NSMutableArray *methodList = [NSMutableArray array];
     Method *methods= class_copyMethodList([self class], &count);
@@ -148,7 +146,9 @@
     free(methods);
     return methodList;
 }
--(NSArray*)methodListInfo{
+
+-(NSArray*)methodListInfo
+{
     u_int               count;
     NSMutableArray *methodList = [NSMutableArray array];
     Method *methods= class_copyMethodList([self class], &count);
@@ -189,7 +189,9 @@
     free(methods);
     return methodList;
 }
-+(NSArray*)methodList{
+
++(NSArray*)methodList
+{
     u_int               count;
     NSMutableArray *methodList = [NSMutableArray array];
     Method * methods= class_copyMethodList([self class], &count);
@@ -203,7 +205,7 @@
 
     return methodList;
 }
-//创建并返回一个指向所有已注册类的指针列表
+
 + (NSArray *)registedClassList
 {
     NSMutableArray *result = [NSMutableArray array];
@@ -220,16 +222,11 @@
     return result;
 }
 
-/**
- *  @author Jakey, 15-12-22 12:12:17
- *
- *  <>协议列表信息
- *
- *  @return 协议列表信息
- */
--(NSDictionary *)protocolList{
+-(NSDictionary *)protocolList
+{
     return [[self class]protocolList];
 }
+
 + (NSDictionary *)protocolList
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];

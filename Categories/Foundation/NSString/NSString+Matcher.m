@@ -1,14 +1,7 @@
-//  NSString+Matcher.m
-//  Whyd
-//
-//  Created by Damien Romito on 29/01/15.
-//  Copyright (c) 2015 Damien Romito. All rights reserved.
-//
 
 #import "NSString+Matcher.h"
 
 @implementation NSString(Matcher)
-
 
 - (NSArray *)matchWithRegex:(NSString *)regex
 {
@@ -20,20 +13,17 @@
     return mArray;
 }
 
-
 - (NSString *)matchWithRegex:(NSString *)regex atIndex:(NSUInteger)index
 {
     NSTextCheckingResult *result = [self firstMatchedResultWithRegex:regex];
     return [self substringWithRange:[result rangeAtIndex:index]];
 }
 
-
 - (NSString *)firstMatchedGroupWithRegex:(NSString *)regex
 {
     NSTextCheckingResult *result = [self firstMatchedResultWithRegex:regex];
     return [self substringWithRange:[result rangeAtIndex:1]];
 }
-
 
 - (NSTextCheckingResult *)firstMatchedResultWithRegex:(NSString *)regex
 {

@@ -1,13 +1,7 @@
-//
-//  NSObject+Runtime.m
-//  Categories 
-//
-//  Created by Jakey on 14/12/30.
-//  Copyright (c) 2014年 www.skyfox.org. All rights reserved.
-//
 
 #import "NSObject+Runtime.h"
 #import <objc/runtime.h>
+
 BOOL method_swizzle(Class klass, SEL origSel, SEL altSel)
 {
     if (!klass)

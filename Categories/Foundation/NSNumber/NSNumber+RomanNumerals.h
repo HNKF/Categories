@@ -1,21 +1,11 @@
-//
-//  NSNumber+RomanNumerals.h
-//  SalesBagStandalone
-//
-//  Created by Patrick Zearfoss on 10/19/11.
-//
 
 //https://github.com/pzearfoss/NSNumber-RomanNumerals
+
 #import <Foundation/Foundation.h>
 
 @interface NSNumber (RomanNumerals)
-/**
- *  @author Categories
- *
- *   A category on NSNumber that returns the value as a roman numeral 
- *
- *  @return <#return value description#>
- */
+
+/** 返回自己对应的罗马数字 */
 - (NSString *)romanNumeral;
 
 @end

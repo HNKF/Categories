@@ -1,17 +1,11 @@
-//
-//  NSString+NormalRegex.h
-//  Categories
-//
-//  Created by KevinHM on 15/6/24.
-//  Copyright (c) 2015年 KevinHM. All rights reserved.
-//  https://github.com/KevinHM
-//
 
 #import "NSString+NormalRegex.h"
 
 @implementation NSString (NormalRegex)
+
 #pragma mark - 正则相关
-- (BOOL)isValidateByRegex:(NSString *)regex{
+- (BOOL)isValidateByRegex:(NSString *)regex
+{
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     return [pre evaluateWithObject:self];
 }
@@ -121,37 +115,6 @@
 {
     NSString *taxNoRegex = @"[0-9]\\d{13}([0-9]|X)$";
     return [self isValidateByRegex:taxNoRegex];
-}
-
-- (BOOL)isValidWithMinLenth:(NSInteger)minLenth
-                   maxLenth:(NSInteger)maxLenth
-             containChinese:(BOOL)containChinese
-        firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
-{
-    //  [\u4e00-\u9fa5A-Za-z0-9_]{4,20}
-    NSString *hanzi = containChinese ? @"\u4e00-\u9fa5" : @"";
-    NSString *first = firstCannotBeDigtal ? @"^[a-zA-Z_]" : @"";
-    
-    NSString *regex = [NSString stringWithFormat:@"%@[%@A-Za-z0-9_]{%d,%d}", first, hanzi, (int)(minLenth-1), (int)(maxLenth-1)];
-    return [self isValidateByRegex:regex];
-}
-
-- (BOOL)isValidWithMinLenth:(NSInteger)minLenth
-                   maxLenth:(NSInteger)maxLenth
-             containChinese:(BOOL)containChinese
-              containDigtal:(BOOL)containDigtal
-              containLetter:(BOOL)containLetter
-      containOtherCharacter:(NSString *)containOtherCharacter
-        firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
-{
-    NSString *hanzi = containChinese ? @"\u4e00-\u9fa5" : @"";
-    NSString *first = firstCannotBeDigtal ? @"^[a-zA-Z_]" : @"";
-    NSString *lengthRegex = [NSString stringWithFormat:@"(?=^.{%@,%@}$)", @(minLenth), @(maxLenth)];
-    NSString *digtalRegex = containDigtal ? @"(?=(.*\\d.*){1})" : @"";
-    NSString *letterRegex = containLetter ? @"(?=(.*[a-zA-Z].*){1})" : @"";
-    NSString *characterRegex = [NSString stringWithFormat:@"(?:%@[%@A-Za-z0-9%@]+)", first, hanzi, containOtherCharacter ? containOtherCharacter : @""];
-    NSString *regex = [NSString stringWithFormat:@"%@%@%@%@", lengthRegex, digtalRegex, letterRegex, characterRegex];
-    return [self isValidateByRegex:regex];
 }
 
 #pragma mark - 算法相关
@@ -338,7 +301,5 @@
     
     return NO;
 }
-
-
 
 @end

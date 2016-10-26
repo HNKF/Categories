@@ -8,7 +8,8 @@
  *  @param value 被附加的对象
  *  @param key   被附加对象的key
  */
-- (void)associateValue:(id)value withKey:(void *)key; // Strong reference
+- (void)associateValue:(id)value withKey:(void *)key;
+
 /**
  *  @brief  附加一个weak对象
  *

@@ -1,10 +1,3 @@
-//
-//  NSObject+Runtime.h
-//  Categories 
-//
-//  Created by Jakey on 14/12/30.
-//  Copyright (c) 2014年 www.skyfox.org. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
@@ -68,4 +61,5 @@
  @return YES if one of super classes in hierarchy responds a specified selector.
  */
 + (BOOL)instancesRespondToSelector:(SEL)selector untilClass:(Class)stopClass;
+
 @end
